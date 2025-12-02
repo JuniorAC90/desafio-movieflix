@@ -1,7 +1,6 @@
 package com.devsuperior.movieflix.controllers;
 
 import com.devsuperior.movieflix.dto.GenreDTO;
-import com.devsuperior.movieflix.entities.Genre;
 import com.devsuperior.movieflix.services.GenreService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
