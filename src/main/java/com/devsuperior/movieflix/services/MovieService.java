@@ -1,7 +1,9 @@
 package com.devsuperior.movieflix.services;
 
 import com.devsuperior.movieflix.dto.MovieDetailsDTO;
+import com.devsuperior.movieflix.entities.Genre;
 import com.devsuperior.movieflix.entities.Movie;
+import com.devsuperior.movieflix.repositories.GenreRepository;
 import com.devsuperior.movieflix.repositories.MovieRepository;
 import com.devsuperior.movieflix.services.exceptions.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +15,12 @@ public class MovieService {
 
     @Autowired
     MovieRepository repository;
+
+    @Autowired
+    GenreRepository genreRepository;
+
+    @Autowired
+    GenreService genreService;
 
     @Transactional(readOnly = true)
     public MovieDetailsDTO findById(Long id) {
@@ -28,7 +36,10 @@ public class MovieService {
         dto.setYear(entity.getYear());
         dto.setImgUrl(entity.getImgUrl());
         dto.setSynopsis(entity.getSynopsis());
-        dto.setGenre(dto.getGenre());
+
+        Genre genre = genreRepository.findById(entity.getId()).orElseThrow(() -> new ResourceNotFoundException("Entity not found"));
+        dto.setGenre(genreService.copyEntityToDto(genre));
+
         return dto;
     }
 }

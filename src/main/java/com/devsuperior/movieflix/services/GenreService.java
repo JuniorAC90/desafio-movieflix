@@ -21,7 +21,7 @@ public class GenreService {
         return list.stream().map(this::copyEntityToDto).toList();
     }
 
-    private GenreDTO copyEntityToDto(Genre entity) {
+    public GenreDTO copyEntityToDto(Genre entity) {
         GenreDTO dto = new GenreDTO();
         dto.setId(entity.getId());
         dto.setName(entity.getName());
